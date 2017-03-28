@@ -71,9 +71,16 @@ typedef struct			s_file
 	struct s_file		*next;
 }						t_file;
 
+typedef struct			s_index
+{
+	int					i;
+	int					j;
+}						t_index;
+
 int						ft_error(char *str, int error);
 int						ft_add_file(path[PATH_MAX], char *name, t_file **file);
 int						ft_display(t_file *file, int flags, int flag, int argc);
+int						ft_sort(t_file **file, int flags);
 
 
 #endif

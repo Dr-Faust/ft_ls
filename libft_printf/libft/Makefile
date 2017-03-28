@@ -6,7 +6,7 @@
 #    By: opodolia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/20 18:23:48 by opodolia          #+#    #+#              #
-#    Updated: 2017/03/22 19:17:44 by opodolia         ###   ########.fr        #
+#    Updated: 2017/03/28 16:55:39 by opodolia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -60,7 +60,7 @@ $(NAME): $(L_OBJ)
 	ranlib $(NAME)
 	echo -en "\r\033[38;5;22m☑️  MAKE $(NAME_BASE)\033[0m\033[K"
 	echo "\r\033[38;5;184m👥  GROUP MEMBER(S):\033[0m\033[K"
-	echo "\r\033[38;5;15m`cat author | sed s/^/\ \ \ \ /g`\033[0m\033[K"
+	echo "\r\033[38;5;15m`cat author | sed s/^/\ \ \ \ /g`\033[0m\033[K 🇺🇦"
 
 clean:
 	printf "\r\033[38;5;11m⌛  CLEAN  $(NAME_BASE) please wait ...\033[0m\033[K"

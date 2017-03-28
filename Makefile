@@ -6,7 +6,7 @@
 #    By: opodolia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/20 16:00:27 by opodolia          #+#    #+#              #
-#    Updated: 2017/03/22 16:43:40 by opodolia         ###   ########.fr        #
+#    Updated: 2017/03/28 16:56:33 by opodolia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,7 +51,7 @@ $(NAME): $(LS_OBJ)
 	$(CC) $(LS_OBJ) $(LIB_LNK) -lm -o $(NAME)
 	echo -en "\r\033[38;5;22m☑️  MAKE $(NAME_BASE)\033[0m\033[K"
 	echo "\r\033[38;5;184m👥  GROUP MEMBER(S):\033[0m\033[K"
-	echo "\r\033[38;5;15m`cat author | sed s/^/\ \ \ \ /g`\033[0m\033[K"
+	echo "\r\033[38;5;15m`cat author | sed s/^/\ \ \ \ /g`\033[0m\033[K 🇺🇦"
 
 clean:
 	printf "\r\033[38;5;11m⌛  CLEAN  $(NAME_BASE) please wait ...\033[0m\033[K"

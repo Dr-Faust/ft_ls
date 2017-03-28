@@ -1,6 +1,18 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   main.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/28 16:45:45 by opodolia          #+#    #+#             */
+/*   Updated: 2017/03/28 16:58:00 by opodolia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-int	ft_error(char *str, int error)
+int			ft_error(char *str, int error)
 {
 	if (error == USAGE)
 	{
@@ -37,7 +49,7 @@ static int	ft_sort(int argc, char **argv, int (*f)(const char*, const char*))
 	return (0);
 }
 
-static int	ft_init(int	argc, char **argv, int flag)
+static int	ft_init(int argc, char **argv, int flag)
 {
 	int		i;
 	t_file	*file;

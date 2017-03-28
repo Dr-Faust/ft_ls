@@ -1,7 +1,19 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   file.c                                             :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/28 16:46:23 by opodolia          #+#    #+#             */
+/*   Updated: 2017/03/28 16:58:25 by opodolia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "ft_ls.h"
 
-static int	ft_full_path(char path[PATH_MAX], char *name,
-			char full_path[PATH_MAX])
+static int		ft_full_path(char path[PATH_MAX], char *name,
+				char full_path[PATH_MAX])
 {
 	int		i;
 
@@ -43,7 +55,7 @@ static t_file	ft_init_file(char path[PATH_MAX], char *name, t_stat *stat)
 	return (init);
 }
 
-int			ft_add_file(char path[PATH_MAX], char *name, t_file **file)
+int				ft_add_file(char path[PATH_MAX], char *name, t_file **file)
 {
 	char	full_path[PATH_MAX];
 	t_stat	stat;
