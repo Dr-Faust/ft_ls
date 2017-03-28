@@ -62,6 +62,7 @@ char				*ft_strncat(char *s1, const char *s2, size_t n);
 size_t				ft_strlcat(char *dst, const char *src, size_t size);
 char				*ft_strchr(const char *s, int c);
 char				*ft_strrchr(const char *s, int c);
+int					ft_strchr_index(char *s, int c);
 char				*ft_strstr(const char *big, const char *little);
 char				*ft_strnstr(const char *big, const char *little,
 					size_t len);
@@ -95,6 +96,7 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_lstsize(t_list *lst);
 int					ft_lstcount(t_list *list);
 void				ft_lstrev(t_list **list);
+t_list				*ft_lstswap(t_list *l_1, t_list *l_2);
 /*
 **					=====	[NUMB/CHAR]	  =====
 */
