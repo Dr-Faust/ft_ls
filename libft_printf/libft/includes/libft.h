@@ -6,7 +6,7 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2016/12/06 15:10:35 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/22 19:12:07 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/29 21:06:57 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,6 @@ t_list				*ft_lstmap(t_list *lst, t_list *(*f)(t_list *elem));
 int					ft_lstsize(t_list *lst);
 int					ft_lstcount(t_list *list);
 void				ft_lstrev(t_list **list);
-t_list				*ft_lstswap(t_list *l_1, t_list *l_2);
 /*
 **					=====	[NUMB/CHAR]	  =====
 */
@@ -126,6 +125,7 @@ size_t				ft_wcstombs(char *s, const wchar_t *old_ws, size_t len);
 **					=====   [PRINT]   =====
 */
 void				ft_putchar(char c);
+void				ft_putnchar(int len, char c);
 void				ft_putstr(char const *s);
 void				ft_putendl(char const *s);
 void				ft_putnbr(int n);

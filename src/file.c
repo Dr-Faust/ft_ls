@@ -6,7 +6,7 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 16:46:23 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/28 16:58:25 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/29 20:54:07 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,12 +34,12 @@ static int		ft_full_path(char path[PATH_MAX], char *name,
 	return ((i < PATH_MAX) ? 1 : 0);
 }
 
-static t_file	ft_init_file(char path[PATH_MAX], char *name, t_stat *stat)
+static t_file	*ft_init_file(char path[PATH_MAX], char *name, t_stat *stat)
 {
 	t_file	*init;
 
-	if (!(new = ft_memalloc(sizeof(t_file))) ||
-		(!(new->name = ft_strdup(name))))
+	if (!(init = ft_memalloc(sizeof(t_file))) ||
+		(!(init->name = ft_strdup(name))))
 		ft_error(NULL, MALL_ERR);
 	init->mode = stat->st_mode;
 	init->nlink = stat->st_nlink;
@@ -47,11 +47,11 @@ static t_file	ft_init_file(char path[PATH_MAX], char *name, t_stat *stat)
 	init->gid = stat->st_gid;
 	init->rdev = stat->st_rdev;
 	init->size = stat->st_size;
-	init->time = stat->st_mtime;
-	init->ntime = stat->st_mtimensec;
+	init->time = stat->st_mtimespec.tv_sec;
+	init->ntime = stat->st_mtimespec.tv_nsec;
 	init->blocks = stat->st_blocks;
 	ft_full_path(path, name, init->full_path);
-	new->next = 0;
+	init->next = 0;
 	return (init);
 }
 
@@ -72,7 +72,7 @@ int				ft_add_file(char path[PATH_MAX], char *name, t_file **file)
 	else
 	{
 		while ((*file)->next)
-			lst = &((*file)->next);
+			file = &((*file)->next);
 		(*file)->next = ft_init_file(path, name, &stat);
 	}
 	return (0);

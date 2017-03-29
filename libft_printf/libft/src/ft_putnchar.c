@@ -1,20 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstswap.c                                       :+:      :+:    :+:   */
+/*   ft_putnchar.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2017/03/28 16:49:02 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/28 16:49:03 by opodolia         ###   ########.fr       */
+/*   Created: 2017/03/29 13:45:06 by opodolia          #+#    #+#             */
+/*   Updated: 2017/03/29 13:53:27 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-t_list	*ft_sltswap(t_list *l_1, t_list *l_2)
+void	ft_putnchar(int len, char c)
 {
-	l_1->next = l_2->next;
-	l_2->next = l_1;
-	return (l_2);
+	char	*str;
+
+	if (!(str = ft_memalloc(sizeof(char) * (len + 1))))
+		return ;
+	while (len--)
+		str[len] = c;
+	write(1, str, ft_strlen(str));
+	ft_memdel((void **)&str);
 }

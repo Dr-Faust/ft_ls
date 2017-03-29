@@ -6,7 +6,7 @@
 #    By: opodolia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/20 18:23:48 by opodolia          #+#    #+#              #
-#    Updated: 2017/03/28 16:55:39 by opodolia         ###   ########.fr        #
+#    Updated: 2017/03/29 21:07:12 by opodolia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,13 +33,13 @@ L_FILES = ft_memset.c ft_bzero.c ft_memcpy.c ft_memccpy.c ft_memmove.c \
 		  ft_strjoin_free.c ft_strtrim.c ft_strsplit.c ft_split_del.c \
 		  ft_strrev.c ft_strchr_index.c \
 		  ft_lstnew.c ft_lstdelone.c ft_lstdel.c ft_lstadd.c ft_lstiter.c \
-		  ft_lstmap.c ft_lstsize.c ft_lstcount.c ft_lstrev.c ft_lstswap.c \
+		  ft_lstmap.c ft_lstsize.c ft_lstcount.c ft_lstrev.c \
 		  ft_atoi.c ft_itoa.c ft_uitoa_base.c ft_ftoa_base.c ft_isalpha.c \
 		  ft_isdigit.c ft_isalnum.c ft_isascii.c ft_isprint.c ft_toupper.c \
 		  ft_tolower.c ft_quicksort.c ft_swap.c ft_sqrt.c ft_ld_intpower.c \
 		  ft_wclen.c ft_wcslen.c ft_wctomb.c ft_wcstombs.c \
 		  ft_putchar.c ft_putstr.c ft_putendl.c ft_putnbr.c ft_putchar_fd.c \
-		  ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c \
+		  ft_putstr_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putnchar.c \
 		  get_next_line.c ft_word_count.c
 
 L_SRC = $(addprefix $(L_SRC_DIR), $(L_FILES))

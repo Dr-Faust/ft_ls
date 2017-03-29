@@ -1,11 +1,31 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   ft_ls.h                                            :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2017/03/29 11:09:21 by opodolia          #+#    #+#             */
+/*   Updated: 2017/03/29 21:31:23 by opodolia         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #ifndef FT_LS_H
 # define FT_LS_H
 
-# include "../libft/print_includes/ft_printf.h"
-# include <stat.h>
+# include "../libft_printf/includes/ft_printf.h"
+# include <sys/stat.h>
+# include <sys/types.h>
+# include <time.h>
 # include <dirent.h>
 # include <pwd.h>
 # include <grp.h>
+# include <sys/ioctl.h>
+# include <sys/xattr.h>
+# include <sys/acl.h>
+# include <limits.h>
+# include <uuid/uuid.h>
+# include <errno.h>
 
 /*
 ** -a [LS_A]	to display hidden files, current and previous folders;
@@ -41,6 +61,7 @@ typedef struct stat		t_stat;
 typedef struct dirent	t_dirent;
 typedef struct passwd	t_passwd;
 typedef struct group	t_group;
+typedef struct winsize	t_size;
 
 /*
 **				mode	- [XSI] Mode of file;
@@ -73,14 +94,24 @@ typedef struct			s_file
 
 typedef struct			s_index
 {
-	int					i;
-	int					j;
+	int					x;
+	int					y;
 }						t_index;
 
 int						ft_error(char *str, int error);
-int						ft_add_file(path[PATH_MAX], char *name, t_file **file);
-int						ft_display(t_file *file, int flags, int flag, int argc);
-int						ft_sort(t_file **file, int flags);
-
+int						ft_add_file(char path[PATH_MAX], char *name,
+						t_file **file);
+t_file					*ft_file_swap(t_file *f_1, t_file *f_2);
+void					ft_print(t_file *file, int flags, int flag, int argc);
+int						ft_name_maxlen(t_file *file);
+int						ft_blocks_maxlen(t_file *file, int	*total);
+int						ft_int_len(int numb);
+void					ft_col(t_file *file, t_index index, t_index max_len,
+						int len);
+void					ft_row_size(t_file *file, int size[7], int *blocks);
+int						ft_sort_all(t_file **file, int flags);
+void					ft_print_name(t_file *file, int flags, int len);
+void					ft_print_items(t_file *file, int size[7], int flags);
+void					ft_free_file(t_file **file);
 
 #endif

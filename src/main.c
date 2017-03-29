@@ -6,13 +6,13 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 16:45:45 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/28 16:58:00 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/29 21:35:09 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int			ft_error(char *str, int error)
+int				ft_error(char *str, int error)
 {
 	if (error == USAGE)
 	{
@@ -28,14 +28,14 @@ int			ft_error(char *str, int error)
 	return (0);
 }
 
-static int	ft_sort(int argc, char **argv, int (*f)(const char*, const char*))
+static int		ft_sort(int argc, char **argv, int (*f)(const char*, const char*))
 {
 	int		i;
 	int		j;
-	char	tab;
+	char	*tab;
 
 	i = -1;
-	while (++i < size)
+	while (++i < argc)
 	{
 		j = i - 1;
 		tab = argv[i];
@@ -49,7 +49,7 @@ static int	ft_sort(int argc, char **argv, int (*f)(const char*, const char*))
 	return (0);
 }
 
-static int	ft_init(int argc, char **argv, int flag)
+static t_file	*ft_init(int argc, char **argv, int flag)
 {
 	int		i;
 	t_file	*file;
@@ -63,7 +63,7 @@ static int	ft_init(int argc, char **argv, int flag)
 	return (file);
 }
 
-static int	ft_parse(int argc, char **argv, int *flags)
+static int		ft_parse(int argc, char **argv, int *flags)
 {
 	int		i;
 	int		j;
@@ -77,7 +77,7 @@ static int	ft_parse(int argc, char **argv, int *flags)
 			return (i + 1);
 		while (*(++argv[i]))
 		{
-			if ((j = ft_strchr_index("lRartdGSs1", *str)) == -1)
+			if ((j = ft_strchr_index("lRartdGSs1", *argv[i])) == -1)
 				ft_error(argv[i], USAGE);
 			*flags |= (1 << j);
 			if ((*argv[i] == '1') || (*argv[i] == 'l'))
@@ -87,11 +87,11 @@ static int	ft_parse(int argc, char **argv, int *flags)
 	return (i);
 }
 
-int			main(int argc, char **argv)
+int				main(int argc, char **argv)
 {
 	int		i;
 	int		flags;
-	t_file	file;
+	t_file	*file;
 	int		no_files;
 
 	i = ft_parse(argc, argv, &flags);
@@ -99,7 +99,7 @@ int			main(int argc, char **argv)
 	argv += i;
 	file = ft_init(argc, argv, 1);
 	no_files = (!file ? 1 : 0);
-	ft_display(file, flags, (!no_files ? 1 : 2), argc);
+	ft_print(file, flags, (!no_files ? 1 : 2), argc);
 	ft_free_file(&file);
 	return (0);
 }
