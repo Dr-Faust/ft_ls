@@ -6,13 +6,13 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 13:32:27 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/29 21:35:06 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/31 19:05:03 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void		ft_print_detail(t_file *file, int flags)
+void			ft_print_detail(t_file *file, int flags)
 {
 	int		blocks;
 	int		flag;
@@ -35,7 +35,7 @@ static void		ft_print_detail(t_file *file, int flags)
 	}
 }
 
-static void		ft_print_basic(t_file *file, int flags)
+void			ft_print_basic(t_file *file, int flags)
 {
 	int		total;
 	t_index	max_len;
@@ -44,12 +44,12 @@ static void		ft_print_basic(t_file *file, int flags)
 	t_file	*f;
 
 	total = 0;
-	max_len.x = ft_name_maxlen(file) + ((flags & LS_G) ? 1 : 4);
+	max_len.x = ft_name_maxlen(file) + 1;
 	max_len.y = (flags & LS_S) ? ft_blocks_maxlen(file, &total) : 0;
 	if (flags & LS_S)
 		ft_printf("total %d\n", total);
 	ioctl(0, TIOCGWINSZ, &win_size);
-	index.x = (!(flags & 128)) ? win_size.ws_col / (max_len.x + max_len.y) : 1;
+	index.x = (!(flags & LS_1)) ? win_size.ws_col / (max_len.x + max_len.y) : 1;
 	index.y = 0;
 	f = file;
 	while (f)
@@ -57,12 +57,13 @@ static void		ft_print_basic(t_file *file, int flags)
 		++index.y;
 		f = f->next;
 	}
-	if (!(flags & 128))
+	if (!(flags & LS_1))
 		index.y = (index.y % index.x ? 1 : 0) + (index.y / index.x);
 	ft_col(file, index, max_len, flags);
 }
 
-static t_file	*ft_read_folder(char path[PATH_MAX], char *name, int flags)
+static t_file	*ft_read_folder(char path[PATH_MAX], char *name, int flags,
+				mode_t mode)
 {
 	t_file		*file;
 	DIR			*folder;
@@ -70,7 +71,10 @@ static t_file	*ft_read_folder(char path[PATH_MAX], char *name, int flags)
 
 	file = 0;
 	if (!(folder = opendir(path)))
-		ft_error(name, ERRNO);
+	{
+		if (!(S_ISREG(mode)))
+			ft_error(name, ERRNO);
+	}
 	else if (!(flags & LS_D))
 	{
 		while ((entry = readdir(folder)))
@@ -103,25 +107,23 @@ void			ft_print(t_file *file, int flags, int flag, int argc)
 	t_file	*f;
 
 	f = file;
-	if ((flags & LS_RR) && flag)
-		while (f)
+	if (!(flags & LS_RR) && !flag)
+		return ;
+	while (f)
+	{
+		if ((S_ISDIR(f->mode)) && (flag ||
+			(ft_strcmp(f->name, ".") &&
+			ft_strcmp(f->name, ".."))))
 		{
-			if (S_ISDIR(f->mode) && (flag || (ft_strcmp(f->name, ".") &&
-				ft_strcmp(f->name, ".."))))
+			ft_print_full_path(f->full_path, argc, &flag);
+			file = ft_read_folder(f->full_path, f->name, flags, f->mode);
+			if (file)
 			{
-				ft_print_full_path(f->full_path, argc, &flag);
-				file = ft_read_folder(f->full_path, f->name, flags);
-				if (file)
-				{
-					ft_sort_all(&file, flags);
-					if (!flags & LS_L)
-						ft_print_basic(file, flags);
-					else
-						ft_print_detail(file, flags);
-					ft_print(file, flags, 0, -1);
-					ft_free_file(&file);
-				}
+				ft_file(&file, flags);
+				ft_print(file, flags, 0, -1);
+				ft_free_file(&file);
 			}
-			f = f->next;
 		}
+		f = f->next;
+	}
 }

@@ -6,7 +6,7 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 16:45:45 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/29 21:35:09 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/31 19:19:20 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ int				ft_error(char *str, int error)
 	if (error == USAGE)
 	{
 		ft_printf("ft_ls: illegal option -- %c\n", *str);
-		ft_printf("usage: ft_ls [-lRartdGSs1] [file ...]");
+		ft_printf("usage: ft_ls [-alRrtdG1Ss] [file ...]\n");
 	}
 	else if (error == ERRNO || error == MALL_ERR)
 		ft_printf("ft_ls: ");
@@ -28,7 +28,8 @@ int				ft_error(char *str, int error)
 	return (0);
 }
 
-static int		ft_sort(int argc, char **argv, int (*f)(const char*, const char*))
+static int		ft_sort(int argc, char **argv, int (*f)(const char*,
+				const char*))
 {
 	int		i;
 	int		j;
@@ -69,18 +70,19 @@ static int		ft_parse(int argc, char **argv, int *flags)
 	int		j;
 
 	i = 0;
-	j = 0;
 	*flags = 0;
 	while (++i < argc && argv[i][0] == '-' && argv[i][1])
 	{
-		if (argv[i][1] == '-' && argv[i][2])
+		if (argv[i][0] == '-' && argv[i][1] == '-' && !argv[i][2])
 			return (i + 1);
+		else if (argv[i][0] == '-' && argv[i][1] == '-' && argv[i][2])
+			ft_error(argv[i], USAGE);
 		while (*(++argv[i]))
 		{
-			if ((j = ft_strchr_index("lRartdGSs1", *argv[i])) == -1)
+			if ((j = ft_strchr_index("alRrtdG1Ss", *argv[i])) == -1)
 				ft_error(argv[i], USAGE);
 			*flags |= (1 << j);
-			if ((*argv[i] == '1') || (*argv[i] == 'l'))
+			if ((*argv[i] == 'l') || (*argv[i] == '1'))
 				*flags &= (*argv[i] == 'l') ? ~LS_1 : ~LS_L;
 		}
 	}
@@ -95,11 +97,14 @@ int				main(int argc, char **argv)
 	int		no_files;
 
 	i = ft_parse(argc, argv, &flags);
-	argc -= i;
 	argv += i;
+	argc -= i;
 	file = ft_init(argc, argv, 1);
 	no_files = (!file ? 1 : 0);
 	ft_print(file, flags, (!no_files ? 1 : 2), argc);
+	if (file)
+		if (S_ISREG(file->mode))
+			ft_print_files(&file, flags);
 	ft_free_file(&file);
 	return (0);
 }

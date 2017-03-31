@@ -6,7 +6,7 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/28 16:46:23 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/29 20:54:07 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/30 13:59:51 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ static t_file	*ft_init_file(char path[PATH_MAX], char *name, t_stat *stat)
 {
 	t_file	*init;
 
-	if (!(init = ft_memalloc(sizeof(t_file))) ||
+	if (!(init = (t_file *)ft_memalloc(sizeof(t_file))) ||
 		(!(init->name = ft_strdup(name))))
 		ft_error(NULL, MALL_ERR);
 	init->mode = stat->st_mode;

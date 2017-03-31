@@ -6,19 +6,24 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 18:40:29 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/29 21:31:25 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/31 11:27:50 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-static void ft_print_time(t_file *file)
+static void	ft_print_time(t_file *file)
 {
 	time_t	now;
 	char	*str;
 
 	time(&now);
 	str = ctime(&(file->time)) + 4;
+	if (now - file->time > HALF_YEAR_SEK)
+	{
+		str[7] = ' ';
+		ft_strncpy(&(str[8]), &(str[16]), 5);
+	}
 	ft_printf(" %.12s ", str);
 }
 
@@ -90,9 +95,9 @@ void		ft_print_items(t_file *file, int size[7], int flags)
 	ft_print_chmod(str, file->mode, file->full_path);
 	ft_printf(" %*hu", size[1], file->nlink);
 	ft_printf(" %-*s", size[2], getpwuid(file->uid)->pw_name);
-	ft_printf(" %-*s", size[3], getgrgid(file->gid)->gr_name);
+	ft_printf("  %-*s", size[3], getgrgid(file->gid)->gr_name);
 	if (str[0] != 'c' && str[0] != 'b')
-		ft_printf(" %*lld", size[4], file->size);
+		ft_printf("  %*lld", size[4], file->size);
 	else
 	{
 		ft_printf(" %*d", size[5], major(file->rdev));
@@ -105,6 +110,6 @@ void		ft_print_items(t_file *file, int size[7], int flags)
 	{
 		ft_bzero(buff, NAME_MAX + 1);
 		readlink(file->full_path, buff, NAME_MAX);
-		ft_printf("%s -> %s", file->name, buff);
+		ft_print_link(file, flags, buff);
 	}
 }

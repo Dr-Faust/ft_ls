@@ -6,11 +6,28 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 18:08:25 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/29 21:22:43 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/31 18:53:19 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+void		ft_file(t_file **file, int flags)
+{
+	ft_sort_all(file, flags);
+	if (!(flags & LS_L))
+		ft_print_basic(*file, flags);
+	else
+		ft_print_detail(*file, flags);
+}
+
+void		ft_print_link(t_file *file, int flags, char *buff)
+{
+	if (flags & LS_G)
+		ft_printf("%s%s%s -> %s", MAGENTA, file->name, NORMAL, buff);
+	else
+		ft_printf("%s -> %s", file->name, buff);
+}
 
 void		ft_print_name(t_file *file, int flags, int len)
 {
@@ -24,9 +41,9 @@ void		ft_print_name(t_file *file, int flags, int len)
 		if (S_ISDIR(file->mode))
 			ft_printf("%s%s%s", CYAN, file->name, NORMAL);
 		else if (S_ISBLK(file->mode))
-			ft_printf("%s%s%s", BL_CYAN, file->name, NORMAL);
+			ft_printf("%s%s%s", BLUE, file->name, NORMAL);
 		else if (S_ISCHR(file->mode))
-			ft_printf("%s%s%s", BL_YELLOW, file->name, NORMAL);
+			ft_printf("%s%s%s", YELLOW, file->name, NORMAL);
 		else if (S_ISLNK(file->mode))
 			ft_printf("%s%s%s", MAGENTA, file->name, NORMAL);
 		else
@@ -45,8 +62,8 @@ void		ft_col(t_file *file, t_index index, t_index max_len, int flags)
 	t_file	*f;
 	int		i;
 
-	i = -1;
-	while (file && i++ < index.y)
+	i = index.y;
+	while (file && i--)
 	{
 		col = index.x;
 		f = file->next;
@@ -74,8 +91,8 @@ void		ft_row_size(t_file *file, int size[7], int *blocks)
 	{
 		size[0] = MAX(ft_int_len(file->blocks), size[0]);
 		size[1] = MAX(ft_int_len(file->nlink), size[1]);
-		size[2] = MAX((int)ft_strlen(getpwuid(file->uid)->pw_name), size[2]);
-		size[3] = MAX((int)ft_strlen(getgrgid(file->gid)->gr_name), size[3]);
+		size[2] = MAX(ft_strlen(getpwuid(file->uid)->pw_name), (size_t)size[2]);
+		size[3] = MAX(ft_strlen(getgrgid(file->gid)->gr_name), (size_t)size[3]);
 		if (!S_ISCHR(file->mode))
 			len = ft_int_len(file->size);
 		else

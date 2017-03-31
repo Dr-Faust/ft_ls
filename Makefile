@@ -6,7 +6,7 @@
 #    By: opodolia <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2017/03/20 16:00:27 by opodolia          #+#    #+#              #
-#    Updated: 2017/03/29 19:32:26 by opodolia         ###   ########.fr        #
+#    Updated: 2017/03/31 14:34:20 by opodolia         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,7 +23,8 @@ LS_OBJ_DIR = ./obj/
 LS_INC_DIR = ./includes/
 
 # fdf source files
-LS_FILES = main.c file.c sort.c length.c  row_col.c print.c print_items.c
+LS_FILES = main.c file.c sort.c length.c  row_col.c print.c print_items.c \
+		   print_files.c
 
 LS_OBJ = $(addprefix $(LS_OBJ_DIR), $(LS_FILES:.c=.o))
 

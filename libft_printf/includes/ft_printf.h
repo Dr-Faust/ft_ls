@@ -6,7 +6,7 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/06 12:03:22 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/29 17:32:31 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/31 11:28:51 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,12 +17,12 @@
 # include "../libft/includes/libft.h"
 
 # define RED		"\x1B[31m"
-# define GREEN		"\x1B[32m"
-# define YELLOW		"\x1B[33m"
-# define BLUE		"\x1B[34m"
+# define GREEN		"\x1B[1;32m"
+# define YELLOW		"\x1B[1;33m"
+# define BLUE		"\x1B[1;34m"
 # define MAGENTA	"\x1B[35m"
-# define CYAN		"\x1B[36m"
-# define WHITE		"\x1B[37m"
+# define CYAN		"\x1B[1;36m"
+# define WHITE		"\x1B[1;37m"
 # define NORMAL		"\x1B[0m"
 # define BL_CYAN	"\x1B[34;46m"
 # define BL_YELLOW	"\x1B[34;43m"

@@ -6,7 +6,7 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 12:48:48 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/29 21:16:05 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/30 13:34:52 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@ void	ft_free_file(t_file **file)
 {
 	while (*file)
 	{
-		ft_memdel((void **)(*file)->name);
-		ft_memdel((void **)(*file));
+		free((*file)->name);
+		free(*file);
 		*file = (*file)->next;
 	}
 }

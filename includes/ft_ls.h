@@ -6,7 +6,7 @@
 /*   By: opodolia <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2017/03/29 11:09:21 by opodolia          #+#    #+#             */
-/*   Updated: 2017/03/29 21:31:23 by opodolia         ###   ########.fr       */
+/*   Updated: 2017/03/31 19:22:15 by opodolia         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 **				combined with sort by size;
 ** -t [LS_T]	to display by time modified;
 ** -d [LS_D]	to display current folder only;
-** -g [LS_G]	o display the group name in the long (-l) format output;
+** -G [LS_G]	o display the group name in the long (-l) format output;
 ** -1 [LS_1]	to display result on one column;
 ** -S [LS_SS]	to display files sorted by size;
 ** -s [LS_S]	to display the number of file system blocks actually used by
@@ -54,6 +54,8 @@
 # define LS_1	128
 # define LS_SS	256
 # define LS_S	512
+
+# define HALF_YEAR_SEK 15724800
 
 enum	{ERRNO, USAGE, MALL_ERR};
 
@@ -103,6 +105,10 @@ int						ft_add_file(char path[PATH_MAX], char *name,
 						t_file **file);
 t_file					*ft_file_swap(t_file *f_1, t_file *f_2);
 void					ft_print(t_file *file, int flags, int flag, int argc);
+void					ft_file(t_file **file, int flags);
+void					ft_print_files(t_file **file, int flags);
+void					ft_print_basic(t_file *file, int flags);
+void					ft_print_detail(t_file *file, int flags);
 int						ft_name_maxlen(t_file *file);
 int						ft_blocks_maxlen(t_file *file, int	*total);
 int						ft_int_len(int numb);
@@ -111,6 +117,7 @@ void					ft_col(t_file *file, t_index index, t_index max_len,
 void					ft_row_size(t_file *file, int size[7], int *blocks);
 int						ft_sort_all(t_file **file, int flags);
 void					ft_print_name(t_file *file, int flags, int len);
+void					ft_print_link(t_file *file, int flags, char *buff);
 void					ft_print_items(t_file *file, int size[7], int flags);
 void					ft_free_file(t_file **file);
 
